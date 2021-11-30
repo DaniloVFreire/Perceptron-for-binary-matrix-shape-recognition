@@ -21,7 +21,7 @@ public class Utils {
     }
 
     public static void printReusableMatrix(int [] [] matrix){
-        System.out.print("\n");
+        System.out.print("");
         for (int i = 0; i < matrix.length; i++) {
             System.out.print("");
             for (int j = 0; j < matrix[0].length; j++) {
@@ -34,7 +34,7 @@ public class Utils {
             }
             System.out.print("\n");
         }
-        System.out.print("\n");
+        System.out.print("");
     }
 
     public static void printArray(int [] array){
