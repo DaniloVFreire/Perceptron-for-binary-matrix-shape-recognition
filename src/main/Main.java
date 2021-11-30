@@ -3,6 +3,7 @@ package src.main;
 import src.Perceptrons.NeuralNetwork;
 
 import java.io.*;
+import java.util.Scanner;
 
 import static src.Utils.printArray;
 import static src.Utils.printMatrix;
@@ -15,44 +16,48 @@ public class Main {
         //ler arquivo de teste
         NeuralNetwork nn = new NeuralNetwork();
         readAndTrain(nn);
-        //printar resultado
-        //formato x y e x*y de 1's ou 0's e a resposta
-        //4 4  size i j
-        //0 0 0 0
-        //1 1 1 1
-        //1 1 1 1
-        //1 1 1 1
-        //1 answer
+        readAndTest(nn);
     }
     public static void readAndTrain(NeuralNetwork nn) throws IOException {
-        File file = new File("C:\\Users\\danil\\Documents\\projetos github\\Perceptron-for-binary-matrix-shape-recognition\\src\\main\\treino.txt");
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String st;
-        int counter, value;
-        while ((st = br.readLine()) != null){
-            System.out.println(st);
-            if(st.length()>0){
-                if(st.length()==3 && st.charAt(1) == ' '){
-                    counter =(int) st.charAt(0);
-                    counter -= 48;
-                    System.out.println(counter);
-                    value =0;
-                    int [] []matrix = new int[counter][counter];
+        for (int k = 0; k < 8; k++) {
+            Scanner traininInput = new Scanner(new File("src/main/treino.txt"));
+            int size, nexInt;
+            while (traininInput.hasNextInt()){
+                nexInt = traininInput.nextInt();
+                if(nexInt != 0 && nexInt != 1){
+                    int [][] matrix = new int [nexInt] [nexInt];
+                    traininInput.nextInt();
+                    for (int i = 0; i < nexInt; i++) {
+                        for (int j = 0; j < nexInt; j++) {
+                            matrix[i][j] = traininInput.nextInt();
+                        }
+                    }
+                    //System.out.println(nexInt);
+                    nexInt = traininInput.nextInt();
+                    //printMatrix(matrix);
+                    nn.train(matrix, nexInt);
                 }
-                else if(st.length()==5 && st.charAt(2) == ' '){
-                    counter = ((int) st.charAt(0)-48)*10 +((int)st.charAt(1)-48);
-                    System.out.println(counter);
-                    value = 0;
-                    int [] []matrix = new int[counter][counter];
-                }
-                else{
-                    printArray(st.split(""));
-                    value++;
-                }
-            }
-            else{
-
             }
         }
+    }
+
+    public static void readAndTest(NeuralNetwork nn) throws IOException {
+            Scanner testInput = new Scanner(new File("src/main/test.txt"));
+            int size, nexInt;
+            while (testInput.hasNextInt()){
+                nexInt = testInput.nextInt();
+                if(nexInt != 0 && nexInt != 1){
+                    int [][] matrix = new int [nexInt] [nexInt];
+                    testInput.nextInt();
+                    for (int i = 0; i < nexInt; i++) {
+                        for (int j = 0; j < nexInt; j++) {
+                            matrix[i][j] = testInput.nextInt();
+                        }
+                    }
+                    System.out.println("matrix");
+                    //printMatrix(matrix);
+                    System.out.println("resultado " + nn.infer(matrix));
+                }
+            }
     }
 }

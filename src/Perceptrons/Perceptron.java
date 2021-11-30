@@ -1,5 +1,7 @@
 package src.Perceptrons;
 
+import java.util.concurrent.TimeUnit;
+
 import static src.Utils.printArray;
 import static src.Utils.printMatrix;
 
@@ -53,7 +55,7 @@ public class Perceptron {
         this.size = _size;
     }
 
-    public void train(int [] [] question, int rightAnswer) {
+    public void train(int [] [] question, int rightAnswer) throws InterruptedException {
 
         int inferedAnswer ; // tipos de resposta vistas em aula [0,0](nada), [0,1](M), [1,0](H), [1,1](nada)
         int errorRate = 1;
@@ -63,14 +65,17 @@ public class Perceptron {
             inferedAnswer = infer(question);
 
             errorRate = rightAnswer - inferedAnswer; //verificando se a IA acertou;
-
-            System.out.println("Inferencia");
-            System.out.println(inferedAnswer+", "+inferedAnswer);
-            System.out.println("resposta");
-            System.out.println(rightAnswer+", "+rightAnswer);
-            System.out.println("taxa de erro dos perceptrons");
-            System.out.println(errorRate+", "+errorRate);
-
+//            if (question[0].length == 3) {
+//                System.out.println("Inferencia");
+//                System.out.println(inferedAnswer);
+//                System.out.println("resposta");
+//                System.out.println(rightAnswer);
+//                System.out.println("taxa de erro do perceptron");
+//                System.out.println(errorRate);
+//                System.out.println("Pesos dos perceptrons");
+//                printArray(weights);
+//                wait(3000);
+//            }
                 for (int i = 0; i < question.length; i++) {
                     for (int j = 0; j < question[0].length; j++) {
                         weights[i*j] = weights[i*j] + (learningRate * errorRate * question[i][j]);
@@ -78,7 +83,7 @@ public class Perceptron {
                 }
             ++counter;
         }
-        System.out.println("\nSe ajustou com "+ counter + " tentativas\n");
+        //System.out.println("\nSe ajustou com "+ counter + " tentativas\n");
     }
 
     public int infer(int [] [] question){
@@ -92,15 +97,26 @@ public class Perceptron {
             }
         y += bias;
 
-        System.out.println("Resposta bruta da IA");
-        System.out.println(y);
+        //System.out.println("Resposta bruta da IA");
+        //System.out.println(y);
 
-        System.out.println("Pesos dos perceptrons");
-        printArray(weights);
+       // System.out.println("Pesos dos perceptrons");
+        //printArray(weights);
         if (y >= 0){
             inferedAnswer = 1;// Achou H
         }
 
         return inferedAnswer;
+    }
+    public static void wait(int ms)
+    {
+        try
+        {
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
     }
 }
