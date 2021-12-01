@@ -8,6 +8,7 @@ import java.util.Scanner;
 import static src.Utils.printMatrix;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         NeuralNetwork nn = new NeuralNetwork();
         readAndTrain(nn);
@@ -15,7 +16,7 @@ public class Main {
     }
 
     public static void readAndTrain(NeuralNetwork nn) throws IOException {
-        for (int k = 0; k < 40; k++) {
+        for (int k = 0; k < 40; k++) {//epochs
             Scanner traininInput = new Scanner(new File("src/main/treino.txt"));
             int size, desiredAnswer;
             while (traininInput.hasNextInt()) {
@@ -27,10 +28,7 @@ public class Main {
                             matrix[i][j] = traininInput.nextInt();
                         }
                     }
-//                    System.out.println(size);
-                    //printMatrix(matrix);
                     desiredAnswer = traininInput.nextInt();
-//                    printMatrix(matrix);
                     nn.train(matrix, desiredAnswer);
                 }
             }
@@ -49,9 +47,6 @@ public class Main {
                         matrix[i][j] = testInput.nextInt();
                     }
                 }
-                //System.out.println("matrix");
-                //printMatrix(matrix);
-                //nn.infer(matrix);
                 System.out.println("Quantidade de retângulos " + nn.infer(matrix));
             }
         }
