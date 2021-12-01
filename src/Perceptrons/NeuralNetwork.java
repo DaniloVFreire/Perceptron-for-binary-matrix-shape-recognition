@@ -60,7 +60,7 @@ public class NeuralNetwork {
                             System.out.println(submatrix[0].length);
                             printReusableMatrix(submatrix);
                             //System.out.println(answer);
-                            System.out.println(0 + "\n");
+                            System.out.println(1 + "\n");
                         }
                     }
                 }
