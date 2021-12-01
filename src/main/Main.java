@@ -8,7 +8,6 @@ import java.util.Scanner;
 import static src.Utils.printMatrix;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
         NeuralNetwork nn = new NeuralNetwork();
         readAndTrain(nn);
@@ -16,7 +15,7 @@ public class Main {
     }
 
     public static void readAndTrain(NeuralNetwork nn) throws IOException {
-        for (int k = 0; k < 1; k++) {
+        for (int k = 0; k < 40; k++) {
             Scanner traininInput = new Scanner(new File("src/main/treino.txt"));
             int size, desiredAnswer;
             while (traininInput.hasNextInt()) {
@@ -31,6 +30,7 @@ public class Main {
 //                    System.out.println(size);
                     //printMatrix(matrix);
                     desiredAnswer = traininInput.nextInt();
+//                    printMatrix(matrix);
                     nn.train(matrix, desiredAnswer);
                 }
             }
